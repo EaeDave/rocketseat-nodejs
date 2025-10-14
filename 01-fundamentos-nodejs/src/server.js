@@ -6,7 +6,8 @@ import http from 'node:http';
 
 // * Aplicações HTTP => APIs
 const server = http.createServer((req, res) => {
-	return res.end('Hello World');
+	return res.end('Olá, Mundo');
 });
 
+console.log('Iniciando server...');
 server.listen(3333);
