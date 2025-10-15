@@ -30,6 +30,8 @@ const users = [];
 
 // Cabeçalhos (Requisição/resposta) => Metadados
 
+// HTTP Status Code
+
 const server = http.createServer((req, res) => {
 	const { method, url } = req; // req.method e req.url utilizando desestruturação de objetos {}
 
@@ -50,11 +52,11 @@ const server = http.createServer((req, res) => {
 			name: 'John Doe',
 			email: 'johndoe@example.com',
 		});
-		return res.end('Criação de usuários');
+		return res.writeHead(201).end(); // Status code 201 informa que foi criado algo com sucesso
 	}
 	console.log(method, url);
 
-	return res.end('Olá, Mundo');
+	return res.writeHead(404).end(); // Status code 404 Not Found, algo não foi encontrado
 });
 
 console.log('Servidor escutando...');
