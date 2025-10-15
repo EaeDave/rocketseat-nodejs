@@ -20,17 +20,36 @@ import http from 'node:http';
 // * PATCH => Atualizar uma informação específica de um recurso no back-end
 // * DELETE => Deletar um recurso do back-end
 
+// * Stateful - Stateless
+// Stateful guarda informações cruciais em memória RAM
+// Stateless guarda informações cruiciais em terceiros, como banco de dados
+
+// * STATEFUL
+// JSON - JavaScript Object Notation
+const users = [];
+
+// Cabeçalhos (Requisição/resposta) => Metadados
+
 const server = http.createServer((req, res) => {
 	const { method, url } = req; // req.method e req.url utilizando desestruturação de objetos {}
+
+	console.log(req.headers);
 
 	// Early return
 	// * Criando um endpoint /users para o método GET
 	if (method === 'GET' && url === '/users') {
-		return res.end('Listagem de usuários');
+		return res
+			.setHeader('Content-Type', 'application/json')
+			.end(JSON.stringify(users)); // Convertendo um array de objeto em json
 	}
 
 	// * Criando um endpoint /users para o método POST
 	if (method === 'POST' && url === '/users') {
+		users.push({
+			id: 1,
+			name: 'John Doe',
+			email: 'johndoe@example.com',
+		});
 		return res.end('Criação de usuários');
 	}
 	console.log(method, url);
